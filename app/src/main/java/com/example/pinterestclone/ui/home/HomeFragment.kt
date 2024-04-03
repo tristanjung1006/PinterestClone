@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.pinterestclone.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var rvAdapter: Adapter
+    private var itemList = mutableListOf<HomeViewModel>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,6 +36,10 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        // add items into recyclerview holder
+        itemList.add(HomeViewModel())
+
         return root
     }
 
