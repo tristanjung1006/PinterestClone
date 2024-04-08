@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.pinterestclone.PostItem
+import com.example.pinterestclone.R
 import com.example.pinterestclone.databinding.FragmentHomeBinding
+import com.example.pinterestclone.ui.adapter.PinterestAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var rvAdapter: Adapter
-    private var itemList = mutableListOf<HomeViewModel>()
+    private lateinit var rvAdapter: PinterestAdapter
+    private var itemList = mutableListOf<PostItem>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,21 +26,25 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
 
         // add items into recyclerview holder
-        itemList.add(HomeViewModel())
+        itemList.add(PostItem(R.drawable.daemon))
+        itemList.add(PostItem(R.drawable.rhaenyra))
+        itemList.add(PostItem(R.drawable.aemond))
+        itemList.add(PostItem(R.drawable.baela_jace_luke_rhaena))
+        itemList.add(PostItem(R.drawable.daemon_hall))
+        itemList.add(PostItem(R.drawable.hotds2))
+        itemList.add(PostItem(R.drawable.syrax))
 
-        return root
+        rvAdapter = PinterestAdapter(requireContext(), itemList)
+
+        binding.rvPinterest.adapter = rvAdapter
+
+        binding.rvPinterest.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        return binding.root
     }
 
     override fun onDestroyView() {
