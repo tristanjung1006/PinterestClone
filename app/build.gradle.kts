@@ -54,4 +54,7 @@ dependencies {
 
     // recyclerview
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    // roundedimageview
+    implementation ("com.makeramen:roundedimageview:2.3.0")
 }
